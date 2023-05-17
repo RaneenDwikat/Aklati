@@ -10,7 +10,12 @@ const itemSchema= new mongoose.Schema({
         type: Number
     },
     rate:{
-        type: String
+        type: Number,
+        default: 0
+    },
+    discount:{
+        type: Number,
+        default: 0
     },
     name:{
         type: String

@@ -6,6 +6,7 @@ const dotenv =require('dotenv')
 const userRouter = require("./router/userRouter")
 const adminRouter = require("./router/adminRouter")
 const itemRouter = require("./router/itemRouter")
+const favoriteRouter = require("./router/favoriteRouter")
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(userRouter)
 app.use(adminRouter)
 app.use(itemRouter)
+app.use(favoriteRouter)
 
 const port= process.env.PORT || 3000
 
