@@ -1,7 +1,6 @@
 const mongoose=require('mongoose')
 
 const itemSchema= new mongoose.Schema({
-
     pageOwner:{
         type: mongoose.ObjectId,
         ref: 'admins'
@@ -23,5 +22,11 @@ const itemSchema= new mongoose.Schema({
     description:{
         type: String
     },
+    ingredients:{
+        type: String
+    },
+    category:{
+        type: String
+    }
 },{timestamps:true})
 module.exports=mongoose.model('items',itemSchema)

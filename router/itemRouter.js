@@ -19,7 +19,7 @@ router.get('/getItems',controller.getItems)
 //get all items ordered by rate --no data needed
 router.get('/getItemsSortedByRate',controller.getItemsSortedByRate)
 
-//get all items  for spacific admin need admin's _id (pageOwner)
+//get all items  for spacific admin need admin's _id (pageOwner) in url
 router.get('/getItemsByPageOwner/:pageOwner',controller.getItemsByPageOwner)
 
 //get all items ordered by discount --no data needed
@@ -27,4 +27,8 @@ router.get('/getItemsSortedByDiscount',controller.getItemsSortedByDiscount)
 
 //delete spacific item by sending his _id in url
 router.delete('/deleteItem/:_id',controller.deleteItem) 
+
+//get all items by category need category in body request
+router.get('/getItemsByCategory/:category',controller.getItemsByCategory)
+
 module.exports=router

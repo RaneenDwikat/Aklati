@@ -3,9 +3,9 @@ const mongoose=require("mongoose")
 class Controller {
  
   addItem = async (req, res, next) => {
-    const { price, name,description,pageOwner } = req.body;
+    const { price, name,description,pageOwner,ingredients,category } = req.body;
     try { 
-        await new Item({ price, name,description,pageOwner}).save();
+        await new Item({ price, name,description,pageOwner,ingredients,category}).save();
         return res.status(201).json({ success: true, msg: "item added successfully"});
     } catch (error) {
       console.log(error);
@@ -13,11 +13,11 @@ class Controller {
     }
   };
   updateItem = async (req, res, next) => {
-    const { price, name,description,pageOwner,rate  } = req.body;
+    const { price, name,description,pageOwner,rate,ingredients,category   } = req.body;
    const {_id}=req.params
     try {
       const item = await Item.findOneAndUpdate(
-        { _id: _id, pageOwner: pageOwner},{price, name,description,rate});
+        { _id: _id, pageOwner: pageOwner},{price, name,description,rate,ingredients,category });
         if(item){
             return res.status(200).json({success:true,msg:'updated'})
         }else{
@@ -149,6 +149,33 @@ class Controller {
     try {
       const item=await Item.aggregate([
         { $match:  {pageOwner:new mongoose.Types.ObjectId(pageOwner)}   },
+        {$lookup:{
+            from: "admins",
+            foreignField: "_id",
+            localField: "pageOwner",
+            pipeline: [
+                {
+                  $project: {
+                    createdAt: 0,
+                    updatedAt: 0,
+                    __v: 0,
+                  },
+                },
+              ],
+            as:"admin"
+        }}
+       ])
+      return res.status(200).json({success: true, msg: 'getting item successfuly', data:item})
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({success: false, msg: 'something went wrong'})
+    }
+  }
+  getItemsByCategory= async(req,res,next) =>{
+    const {category}= req.params
+    try {
+      const item=await Item.aggregate([
+        { $match:  {category:category}   },
         {$lookup:{
             from: "admins",
             foreignField: "_id",

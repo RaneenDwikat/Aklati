@@ -14,24 +14,24 @@ const orderSchema= new mongoose.Schema({
         type: mongoose.ObjectId,
         ref: 'admins'
     },
-    img:{
-        type: String
-    },
     discount:{
-        type: String
+        type: Number,
+        default: 0
     },
     size:{
         type: String
     },
     count:{
-        type: String
+        type: Number
     },
     rate:{
-        type: String
+        type: Number,
+        default: 0
     },
     status:{
         type: String,
-        enum: ["inReview","inProgress","done","rejected","rated"]
+        enum: ["inReview","inProgress","done","rejected","rated","deleted"],
+        default: "inReview"
     },
 },{timestamps:true})
 module.exports=mongoose.model('orders',orderSchema)
