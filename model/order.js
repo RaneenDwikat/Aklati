@@ -33,5 +33,8 @@ const orderSchema= new mongoose.Schema({
         enum: ["inReview","inProgress","done","rejected","rated","deleted"],
         default: "inReview"
     },
+    note:{
+        type: String
+    }
 },{timestamps:true})
 module.exports=mongoose.model('orders',orderSchema)

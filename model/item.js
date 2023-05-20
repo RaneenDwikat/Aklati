@@ -27,6 +27,9 @@ const itemSchema= new mongoose.Schema({
     },
     category:{
         type: String
+    },
+    img:{
+        type: String
     }
 },{timestamps:true})
 module.exports=mongoose.model('items',itemSchema)
